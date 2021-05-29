@@ -1,6 +1,13 @@
 package io.shakhzod.coronavirus.models;
 
+
+import javax.persistence.*;
+
+@Entity
 public class LocationStats {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String state;
     private String country;

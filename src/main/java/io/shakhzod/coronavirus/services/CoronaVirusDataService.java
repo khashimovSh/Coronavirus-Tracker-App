@@ -1,8 +1,10 @@
 package io.shakhzod.coronavirus.services;
 
 import io.shakhzod.coronavirus.models.LocationStats;
+import io.shakhzod.coronavirus.repository.CoronaRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,12 @@ import java.util.List;
 @Service
 public class CoronaVirusDataService {
 
+
+    private final CoronaRepository coronaRepository;
+    public CoronaVirusDataService(CoronaRepository coronaRepository)
+    {
+        this.coronaRepository = coronaRepository;
+    }
     public static String VIRUS_DATA_URI = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
     private List<LocationStats> allStats = new ArrayList<>();
 
@@ -47,6 +55,7 @@ public class CoronaVirusDataService {
             locationStats.setLatestTotalCases(latestCases);
             locationStats.setDiffFromPrevDay(latestCases-prevDayCases);
             newStats.add(locationStats);
+            coronaRepository.save(locationStats);
         }
         this.allStats = newStats;
 
