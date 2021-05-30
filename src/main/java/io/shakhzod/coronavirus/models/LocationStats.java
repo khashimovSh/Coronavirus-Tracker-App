@@ -46,6 +46,7 @@ public class LocationStats {
         this.latestTotalCases = latestTotalCases;
     }
 
+
     @Override
     public String toString() {
         return "LocationStats{" +
