@@ -60,5 +60,12 @@ public class CoronaVirusDataService {
         this.allStats = newStats;
 
     }
+    public List<LocationStats> searchByCountry(String country)
+    {
+        List<LocationStats> countries = new ArrayList<>();
+        countries = coronaRepository.findAllByCountry(country);
+        return countries;
+
+    }
 
 }
